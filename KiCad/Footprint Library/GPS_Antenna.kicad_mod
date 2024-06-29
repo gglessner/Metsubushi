@@ -1,0 +1,136 @@
+(footprint "GPS_Antenna"
+	(version 20240108)
+	(generator "pcbnew")
+	(generator_version "8.0")
+	(layer "F.Cu")
+	(property "Reference" "REF**"
+		(at 14.13 10.88 90)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "b7a5af3a-324d-43c4-b6b7-2849b5bed013")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+		)
+	)
+	(property "Value" "GPS Antenna"
+		(at -0.02 -9.02 0)
+		(unlocked yes)
+		(layer "Eco1.User")
+		(hide yes)
+		(uuid "39863463-b82d-480a-802e-7bf35f83a1cc")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+	(property "Footprint" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "304afab1-b8d3-477a-9e44-72b7548c8cc5")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Datasheet" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "13b41ed3-7ade-4217-a4de-7b7df39138fd")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(property "Description" ""
+		(at 0 0 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(hide yes)
+		(uuid "1ee9bd18-5603-4f32-aaf6-ac613166245b")
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+		)
+	)
+	(fp_rect
+		(start -12.48 -12.05)
+		(end 12.52 12.95)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "F.SilkS")
+		(uuid "4915ddba-7ea1-469e-a5f9-f22ebe02f63d")
+	)
+	(fp_rect
+		(start -11.08 -10.84)
+		(end 11.19 11.68)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "F.SilkS")
+		(uuid "8e1859ca-2a9c-4e19-b179-1b8fef3c0027")
+	)
+	(fp_circle
+		(center 0.02 -0.03)
+		(end 1.41 -0.68)
+		(stroke
+			(width 0.1)
+			(type default)
+		)
+		(fill none)
+		(layer "F.SilkS")
+		(uuid "475b7a4e-c958-4b2a-987c-e66c5666c55c")
+	)
+	(fp_rect
+		(start -12.68 -12.27)
+		(end 12.7 13.08)
+		(stroke
+			(width 0.05)
+			(type default)
+		)
+		(fill none)
+		(layer "F.CrtYd")
+		(uuid "5f14318c-0e10-4811-8a7e-10b12f3cfda9")
+	)
+	(fp_text user "GPS Antenna"
+		(at -4.93 -8.43 0)
+		(unlocked yes)
+		(layer "F.SilkS")
+		(uuid "eb6bdbff-830d-474a-beec-c5aebcc85a15")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.1)
+			)
+			(justify left bottom)
+		)
+	)
+	(fp_text user "${REFERENCE}"
+		(at -0.01 6.27 0)
+		(unlocked yes)
+		(layer "F.Fab")
+		(uuid "8b85af48-27b6-4a1f-85d0-3f1f4d70f451")
+		(effects
+			(font
+				(size 1 1)
+				(thickness 0.15)
+			)
+		)
+	)
+)

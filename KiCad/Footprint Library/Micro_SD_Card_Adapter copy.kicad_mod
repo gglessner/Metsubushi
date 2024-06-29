@@ -1,0 +1,98 @@
+(footprint "Micro SD Card Adapter" (version 20221018) (generator pcbnew)
+  (layer "F.Cu")
+  (property "Sheetfile" "WarWalker2.kicad_sch")
+  (property "Sheetname" "")
+  (attr through_hole)
+  (fp_text reference "M3" (at 6.858 10.16) (layer "F.SilkS")
+      (effects (font (size 1 1) (thickness 0.15)))
+    (tstamp b47c0a8a-7f90-4cf8-a6db-b08fc4c250b8)
+  )
+  (fp_text value "MicroSD Card Adapter" (at -0.254 -3.556) (layer "Dwgs.User") hide
+      (effects (font (size 1 1) (thickness 0.15)))
+    (tstamp 8680d318-770e-4aac-ab7b-a9bae550ad30)
+  )
+  (fp_text user "CLK" (at 1.778 5.08 90 unlocked) (layer "F.SilkS")
+      (effects (font (size 1 1) (thickness 0.1)) (justify left bottom))
+    (tstamp 08398d97-c288-4aab-8f15-54c07ae20390)
+  )
+  (fp_text user "MISO" (at 4.4 5.11 90 unlocked) (layer "F.SilkS")
+      (effects (font (size 1 1) (thickness 0.1)) (justify left bottom))
+    (tstamp 5309f27c-c256-4d46-affb-67427e2345ac)
+  )
+  (fp_text user "GND" (at 7.01 1.94 90 unlocked) (layer "F.SilkS")
+      (effects (font (size 1 1) (thickness 0.1)) (justify left bottom))
+    (tstamp 7040dca9-6ad4-4d09-b921-7a9d6e4b0401)
+  )
+  (fp_text user "MOSI" (at -0.79049 5.08 90 unlocked) (layer "F.SilkS")
+      (effects (font (size 1 1) (thickness 0.1)) (justify left bottom))
+    (tstamp 805bb6cb-ce26-47f2-830d-2ceca165c2fb)
+  )
+  (fp_text user "3V3" (at -5.84 1.654286 90 unlocked) (layer "F.SilkS")
+      (effects (font (size 1 1) (thickness 0.1)) (justify left bottom))
+    (tstamp 821fe900-5700-471d-a55c-c23f88f7a3db)
+  )
+  (fp_text user "MicroSD Card Adapter" (at -8.56 -3.01 unlocked) (layer "F.SilkS")
+      (effects (font (size 1 1) (thickness 0.1)) (justify left bottom))
+    (tstamp bc88d02a-0a99-4c20-a4b6-90d14c56877f)
+  )
+  (fp_text user "CS" (at -3.302 5.08 90 unlocked) (layer "F.SilkS")
+      (effects (font (size 1 1) (thickness 0.1)) (justify left bottom))
+    (tstamp fc2cfbd9-6a2e-4840-ae98-dad2fcdabde0)
+  )
+  (fp_line (start -9.17249 -9.00647) (end 8.86151 -9.00647)
+    (stroke (width 0.1) (type default)) (layer "F.SilkS") (tstamp 94702764-1f4a-46d8-a637-a6af7f26f53f))
+  (fp_line (start -9.17249 9.02753) (end -9.17249 -9.00647)
+    (stroke (width 0.1) (type default)) (layer "F.SilkS") (tstamp fe35c0a4-9433-4521-960b-8d79388bfa50))
+  (fp_line (start 8.86151 -9.00647) (end 8.86151 9.02753)
+    (stroke (width 0.1) (type default)) (layer "F.SilkS") (tstamp 90579b38-1b36-437b-8818-2ac24a4b5f8c))
+  (fp_line (start 8.86151 9.02753) (end -9.17249 9.02753)
+    (stroke (width 0.1) (type default)) (layer "F.SilkS") (tstamp 1a19bce2-dc60-4ccd-ae91-4180e8716214))
+  (fp_circle (center -7.42 3.917348) (end -6.06 4.567348)
+    (stroke (width 0.1) (type default)) (fill none) (layer "F.SilkS") (tstamp 0dd998d8-de85-465e-bfd3-77b313a8c74a))
+  (fp_circle (center 7.05 3.917348) (end 8.41 4.567348)
+    (stroke (width 0.1) (type default)) (fill none) (layer "F.SilkS") (tstamp ca1272ba-92b6-4e87-b721-b566e5f7d452))
+  (fp_rect (start -9.398 -9.144) (end 9.144 9.144)
+    (stroke (width 0.05) (type default)) (fill none) (layer "F.CrtYd") (tstamp 1024e822-2fe7-42e9-bd22-a1146e294b24))
+  (pad "1" thru_hole oval (at -6.37849 7.12253) (size 2 3) (drill 0.8) (layers "*.Cu" "*.Mask")
+    (thermal_bridge_angle 45) (tstamp 5ec03612-9844-4e90-be92-9ba04c852e4b))
+  (pad "2" thru_hole oval (at -3.83849 7.12253) (size 2 3) (drill 0.8) (layers "*.Cu" "*.Mask")
+    (thermal_bridge_angle 45) (tstamp 7ed0b184-0b1a-45ab-b667-886ae2a34cef))
+  (pad "3" thru_hole oval (at -1.29849 7.12253) (size 2 3) (drill 0.8) (layers "*.Cu" "*.Mask")
+    (thermal_bridge_angle 45) (tstamp 6a5c1d2e-3074-4f12-9329-30c503284d59))
+  (pad "4" thru_hole oval (at 1.24151 7.12253) (size 2 3) (drill 0.8) (layers "*.Cu" "*.Mask")
+    (thermal_bridge_angle 45) (tstamp 34fb95fb-6e55-4a07-937a-52da87634837))
+  (pad "5" thru_hole oval (at 3.78151 7.12253) (size 2 3) (drill 0.8) (layers "*.Cu" "*.Mask")
+    (thermal_bridge_angle 45) (tstamp def59c32-a7af-41b9-ad8c-050a3265da5a))
+  (pad "6" thru_hole oval (at 6.32151 7.12253) (size 2 3) (drill 0.8) (layers "*.Cu" "*.Mask")
+    (thermal_bridge_angle 45) (tstamp 33f007fb-ab18-409b-9164-ce9408472273))
+  (group "" (id b5d53e98-6d70-4ae4-a2fe-5d8c48ee2b79)
+    (members
+      08398d97-c288-4aab-8f15-54c07ae20390
+      0dd998d8-de85-465e-bfd3-77b313a8c74a
+      1024e822-2fe7-42e9-bd22-a1146e294b24
+      33f007fb-ab18-409b-9164-ce9408472273
+      34fb95fb-6e55-4a07-937a-52da87634837
+      5309f27c-c256-4d46-affb-67427e2345ac
+      5ec03612-9844-4e90-be92-9ba04c852e4b
+      6a5c1d2e-3074-4f12-9329-30c503284d59
+      7040dca9-6ad4-4d09-b921-7a9d6e4b0401
+      7ed0b184-0b1a-45ab-b667-886ae2a34cef
+      805bb6cb-ce26-47f2-830d-2ceca165c2fb
+      821fe900-5700-471d-a55c-c23f88f7a3db
+      82c09495-c910-402f-a5f1-52dc29ec46f4
+      8680d318-770e-4aac-ab7b-a9bae550ad30
+      b47c0a8a-7f90-4cf8-a6db-b08fc4c250b8
+      ca1272ba-92b6-4e87-b721-b566e5f7d452
+      def59c32-a7af-41b9-ad8c-050a3265da5a
+      fc2cfbd9-6a2e-4840-ae98-dad2fcdabde0
+    )
+  )
+  (group "" (id 82c09495-c910-402f-a5f1-52dc29ec46f4)
+    (members
+      1a19bce2-dc60-4ccd-ae91-4180e8716214
+      90579b38-1b36-437b-8818-2ac24a4b5f8c
+      94702764-1f4a-46d8-a637-a6af7f26f53f
+      fe35c0a4-9433-4521-960b-8d79388bfa50
+    )
+  )
+)
