@@ -2,6 +2,7 @@
 #include "SD.h"
 #include "SPI.h"
 #include <Wire.h>
+#include "i2c_addrs.h"
 
 #define VERSION "1.0"
 
@@ -26,6 +27,18 @@ void displayMenu() {
 
   Serial.printf("\n[I2C: 0x%0.2x - DIR: %s] Selection your option: ", i2c_addr, directory);
   Serial.flush();
+}
+
+void lookupAndPrint(unsigned char byteToMatch) {
+    Serial.printf("\tPossible device:\r\n");
+    // Iterate through the lookup table
+    for (int i = 0; i < sizeof(lookupTable) / sizeof(lookupTable[0]); i++) {
+        // Check if the byte value matches
+        if (lookupTable[i].byteValue == byteToMatch) {
+            // Print the corresponding string
+            Serial.printf("\t\t- %s\n", lookupTable[i].stringValue);
+        }
+    }
 }
 
 void changeEepromSize() {
@@ -177,6 +190,7 @@ void scanI2CDevices() {
             }
             Serial.print(address, HEX);
             Serial.println();
+            lookupAndPrint(address);
             deviceCount++;
         }
         delay(10); // Some devices need a small delay
