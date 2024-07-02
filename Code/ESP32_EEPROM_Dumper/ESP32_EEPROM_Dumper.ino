@@ -4,7 +4,7 @@
 #include <Wire.h>
 #include "i2c_addrs.h"
 
-#define VERSION "1.1"
+#define VERSION "1.3"
 
 long eepromSize = 65535;
 String filename;
@@ -20,11 +20,13 @@ void displayMenu() {
   Serial.printf("4) List files on SD card\r\n");
   Serial.printf("5) HEX Dump File\r\n");
   Serial.printf("6) Change Directory\r\n");
-  Serial.printf("7) Delete a file on SD card\r\n");
-  Serial.printf("8) Dump EEPROM to Serial\r\n");
-  Serial.printf("9) Dump EEPROM to SD card\r\n");
-  Serial.printf("10) Write EEPROM from SD card\r\n");
-  Serial.printf("11) Compare File to EEPROM\r\n");
+  Serial.printf("7) Copy File on SD card\r\n");
+  Serial.printf("8) Delete a file on SD card\r\n");
+  Serial.printf("9) Dump EEPROM to Serial\r\n");
+  Serial.printf("10) Dump EEPROM to SD card\r\n");
+  Serial.printf("11) Write EEPROM from SD card\r\n");
+  Serial.printf("12) Compare File to EEPROM\r\n");
+  Serial.printf("13) Patch File on SD\r\n");
 
   Serial.printf("\n[I2C: 0x%0.2x - DIR: %s] Selection your option: ", i2c_addr, directory);
   Serial.flush();
@@ -172,6 +174,48 @@ void writeEepromFromSD() {
   }
 
   myFile.close(); // Close the file
+}
+
+void copyFileOnSD() {
+  while (Serial.available() > 0) {
+    Serial.read();
+  }
+  Serial.printf("\r\nEnter the filename to copy: ");
+  Serial.flush();
+  while (Serial.available() <= 0) {
+    // wait for user input
+  }
+  String originalFilename = directory + Serial.readString();
+  originalFilename.trim();
+  Serial.printf("%s\r\n", originalFilename);
+
+  while (Serial.available() > 0) {
+    Serial.read();
+  }
+  Serial.printf("\r\nEnter the new filename: ");
+  Serial.flush();
+  while (Serial.available() <= 0) {
+    // wait for user input
+  }
+  String newFilename = directory + Serial.readString();
+  newFilename.trim();
+  Serial.printf("%s\r\n", newFilename);
+
+  File originalFile = SD.open(originalFilename);
+  File newFile = SD.open(newFilename, FILE_WRITE);
+
+  if (originalFile && newFile) {
+    while (originalFile.available()) {
+      newFile.write(originalFile.read());
+    }
+
+    originalFile.close();
+    newFile.close();
+
+    Serial.println("File copied successfully.");
+  } else {
+    Serial.println("Error opening files. Make sure the filenames are correct.");
+  }
 }
 
 void scanI2CDevices() {
@@ -397,6 +441,85 @@ void compareFileAndEeprom() {
   myFile.close(); // Close the file
 }
 
+void patchFileOnSD() {
+  while (Serial.available() > 0) {
+    Serial.read();
+  }
+  Serial.printf("Enter the filename to patch: \r\n");
+  Serial.flush();
+  while (Serial.available() == 0) {
+    // Wait for user input
+  }
+  String patchFilename = directory + Serial.readStringUntil('\n');
+
+  while (Serial.available() > 0) {
+    Serial.read();
+  }
+  Serial.printf("Enter the memory address in hexadecimal (e.g., 0x1000): \r\n");
+  Serial.flush();
+  while (Serial.available() == 0) {
+    // Wait for user input
+  }
+  String addressStr = Serial.readStringUntil('\n');
+  int address = strtol(addressStr.c_str(), NULL, 16);
+
+  while (Serial.available() > 0) {
+    Serial.read();
+  }
+  Serial.printf("Patch location: %0.6Xn\r\n\r\n", address);
+  Serial.printf("Enter 'hex' or 'ascii' to specify the input format: \t\n");
+  Serial.flush();
+  while (Serial.available() == 0) {
+    // Wait for user input
+  }
+  String inputFormat = Serial.readString();
+  inputFormat.trim();
+
+  while (Serial.available() > 0) {
+    Serial.read();
+  }
+  Serial.printf("Enter the bytes to patch (in hex separated by spaces or ASCII string): \r\n");
+  Serial.flush();
+  while (Serial.available() == 0) {
+    // Wait for user input
+  }
+  String patchData = Serial.readString();
+  patchData.trim();
+
+  File file = SD.open(patchFilename, FILE_APPEND);
+
+  if (file) {
+    if (inputFormat == "hex") {
+      // Parse hex bytes and write to file
+      while (patchData.length() > 0) {
+        String hexByte = patchData.substring(0, 2);
+        patchData = patchData.substring(3); // Move to next byte
+
+        byte byteValue = strtol(hexByte.c_str(), NULL, 16);
+        file.seek(address);
+        file.write(byteValue);
+        address++;
+      }
+    } else if (inputFormat == "ascii") {
+      // Write ASCII string to file
+      // file.seek(address);
+      
+      for (int i = 0; i < patchData.length(); i++) {
+        file.seek(address);
+        file.write(patchData[i]);
+        address++; 
+      }
+    } else {
+      Serial.println("Invalid input format. Please enter 'hex' or 'ascii'.");
+    }
+
+    file.close();
+    Serial.println("File patched successfully.");
+  } else {
+    Serial.println("Error opening file. Make sure the filename is correct.");
+  }
+}
+
 void setup() {
   Serial.begin(115200);
   Wire.begin();
@@ -445,24 +568,30 @@ void loop() {
     case 6: // Change Directory
       promptForDirectory();
       break;
-    case 7: // Delete a File
+    case 7: // Copy File on SD
+      copyFileOnSD();
+      break;
+    case 8: // Delete a File
       promptForFilename();
       deleteFile();
       break;
-    case 8: // Dump EEPROM to Serial
+    case 9: // Dump EEPROM to Serial
       dumpEeprom();
       break;
-    case 9: // Dump EEPROM to SD
+    case 10: // Dump EEPROM to SD
       promptForFilename();
       dumpEepromToSD();
       break;
-    case 10: // Write EEPROM from SD
+    case 11: // Write EEPROM from SD
       promptForFilename();
       writeEepromFromSD();
       break;
-    case 11: // Compare File and EEPROM
+    case 12: // Compare File and EEPROM
       promptForFilename();
       compareFileAndEeprom();
+      break;
+    case 13: // Patch File on SD
+      patchFileOnSD();
       break;
     default:
       // Handle invalid option
