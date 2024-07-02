@@ -4,7 +4,7 @@
 #include <Wire.h>
 #include "i2c_addrs.h"
 
-#define VERSION "1.0"
+#define VERSION "1.1"
 
 long eepromSize = 65535;
 String filename;
@@ -24,6 +24,7 @@ void displayMenu() {
   Serial.printf("8) Dump EEPROM to Serial\r\n");
   Serial.printf("9) Dump EEPROM to SD card\r\n");
   Serial.printf("10) Write EEPROM from SD card\r\n");
+  Serial.printf("11) Compare File to EEPROM\r\n");
 
   Serial.printf("\n[I2C: 0x%0.2x - DIR: %s] Selection your option: ", i2c_addr, directory);
   Serial.flush();
@@ -134,7 +135,7 @@ void dumpEepromToSD() {
   String filepath = directory + filename;
   myFile = SD.open(filepath, FILE_WRITE); // Open the file on SD card
 
-  Serial.printf("Dumping EEPROM...\r\n");
+  Serial.printf("\r\nDumping EEPROM...\r\n");
 
   for (int x = 0; x < eepromSize; x += 16) {
     byte buffer[16];
@@ -308,6 +309,94 @@ void promptForDirectory() {
   }
 }
 
+void compareFileAndEeprom() {
+  String filepath = directory + filename;
+  myFile = SD.open(filepath); // Open the file on SD card
+
+  int addr = 0;
+  bool complete_match = true;
+
+  Serial.printf("\r\nComparing file against EEPROM contents...\r\n");
+  while (myFile.available()) {
+    byte fileBuffer[16];
+    byte eepromBuffer[16];
+
+    // Read 16 bytes from file
+    for (int i = 0; i < 16; i++) {
+      if (myFile.available()) {
+        fileBuffer[i] = myFile.read();
+      }
+    }
+
+    // Read 16 bytes from EEPROM
+    Wire.requestFrom(i2c_addr, 16);
+    for (int i = 0; i < 16; i++) {
+      eepromBuffer[i] = Wire.read();
+    }
+
+    bool match = true;
+
+    // Compare the 16 bytes
+    for (int i = 0; i < 16; i++) {
+      if (fileBuffer[i] != eepromBuffer[i]) {
+        match = false;
+        break;
+      }
+    }
+
+    if (!match) {
+      complete_match = false;
+      Serial.printf("Mismatch at %0.6X!\r\n",addr);
+
+      // Print the 16 bytes in hexadecimal
+      Serial.printf("  File: %0.6X) ", addr);
+      for (int i = 0; i < 16; i++) {
+        if (fileBuffer[i] < 16) {
+          Serial.print("0");
+        }
+        Serial.print(fileBuffer[i], HEX);
+        Serial.print(" ");
+      }
+
+      // Print the 16 bytes in ASCII
+      for (int i = 0; i < 16; i++) {
+        if (isprint(fileBuffer[i])) {
+          Serial.write(fileBuffer[i]);
+        } else {
+          Serial.write('.');
+        }
+      }
+      Serial.println();
+
+      // Repeat for EEPROM
+      Serial.printf("EEPROM: %0.6X) ", addr);
+      for (int i = 0; i < 16; i++) {
+        if (eepromBuffer[i] < 16) {
+          Serial.print("0");
+        }
+        Serial.print(eepromBuffer[i], HEX);
+        Serial.print(" ");
+      }
+
+      for (int i = 0; i < 16; i++) {
+        if (isprint(eepromBuffer[i])) {
+          Serial.write(eepromBuffer[i]);
+        } else {
+          Serial.write('.');
+        }
+      }
+      Serial.println();
+    }
+
+    addr += 16;
+  }
+  if(complete_match) {
+    Serial.printf("File completely matches EEPROM contents.\r\n");
+  }
+
+  myFile.close(); // Close the file
+}
+
 void setup() {
   Serial.begin(115200);
   Wire.begin();
@@ -370,6 +459,10 @@ void loop() {
     case 10: // Write EEPROM from SD
       promptForFilename();
       writeEepromFromSD();
+      break;
+    case 11: // Compare File and EEPROM
+      promptForFilename();
+      compareFileAndEeprom();
       break;
     default:
       // Handle invalid option
