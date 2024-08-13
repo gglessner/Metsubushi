@@ -1,0 +1,15 @@
+Microcontroller options:
+
+https://www.amazon.com/gp/product/B09J95SMG7/  
+...or...
+https://www.amazon.com/gp/product/B09KLS2YB3/
+https://www.amazon.com/gp/product/B07R21LN5P/
+
+MicroSD breakout Module:  https://www.amazon.com/gp/product/B08CMLG4D6/
+I2C OLED Module:  https://www.amazon.com/gp/product/B09MZ8DW4R/
+TTL UART GPS Module:  https://www.amazon.com/DWEII-GY-NEO6MV2-NEO6MV2-Control-Antenna/dp/B0BBM3MSJV/
+I2S Audio Amp (Optional):  https://www.amazon.com/gp/product/B0B4GK5R1R/
+Grove connectors (Optional):  https://www.seeedstudio.com/Grove-Universal-4-pin-connector.html
+Low capacity MicroSD card:  https://www.amazon.com/PNY-Performance-microSD-Memory-P-SDU16G4X5-MP/dp/B083VMR3PL/
+
+I recommend soldering the pins on each module, then removing the plastic spacer from the pins to make the modules sit flush on the PCB.
